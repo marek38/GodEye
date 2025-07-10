@@ -2,95 +2,84 @@
 <html lang="sk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrácia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    * {
+      box-sizing: border-box;
     }
-
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #151515, #1e1e1e);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
     .register-container {
-      background: white;
+      background: #222;
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
       width: 100%;
       max-width: 400px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
-
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
+      color: #f4c430;
     }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
+    form {
+      display: flex;
+      flex-direction: column;
     }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1.25rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-    }
-
-    button {
-      width: 100%;
-      background-color: #111827;
-      color: white;
-      padding: 0.75rem;
-      font-size: 1rem;
-      font-weight: bold;
+    input {
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    input::placeholder {
+      color: #888;
+    }
+    button {
+      padding: 0.75rem;
+      background-color: #f4c430;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
     }
-
     button:hover {
-      background-color: #1f2937;
+      background-color: #ffdd57;
     }
-
-    .login-link {
-      margin-top: 1rem;
+    .link {
       text-align: center;
+      margin-top: 1rem;
       font-size: 0.9rem;
     }
-
-    .login-link a {
-      color: #2563eb;
+    .link a {
+      color: #f4c430;
       text-decoration: none;
-    }
-
-    .login-link a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="register-container">
     <h2>Registrácia</h2>
-    <form action="/register/" method="POST">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Používateľské meno" required>
-    <input type="password" name="password" placeholder="Heslo" required>
-    <button type="submit">Registrovať</button>
+    <form method="POST" action="/register/">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Používateľské meno" required>
+      <input type="password" name="password" placeholder="Heslo" required>
+      <button type="submit">Registrovať sa</button>
     </form>
-
-    <div class="login-link">
-      Máš už účet? <a href="/login">Prihlás sa</a>
+    <div class="link">
+      Máte už účet? <a href="/login/">Prihláste sa</a>
     </div>
   </div>
 </body>

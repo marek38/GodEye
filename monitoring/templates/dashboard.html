@@ -4,52 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
       margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #151515, #1e1e1e);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem;
+      min-height: 100vh;
     }
-
     h1 {
-      text-align: center;
+      color: #f4c430;
       margin-bottom: 2rem;
+      text-align: center;
     }
-
-    .grid {
+    .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
+      width: 100%;
+      max-width: calc(2 * 720px + 1rem); /* two 16:9 iframes side by side */
     }
-
     .camera {
-      background: white;
-      padding: 0.5rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: #222;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
-    iframe {
+    .camera iframe {
       width: 100%;
-      height: 300px;
+      aspect-ratio: 16 / 9;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 8px;
+      background: #000;
     }
-
-    .label {
+    .camera .label {
       margin-top: 0.5rem;
-      font-weight: 600;
+      font-weight: bold;
+      color: #f4c430;
     }
   </style>
 </head>
 <body>
   <h1>Vitaj na dashboarde</h1>
-  <div class="grid">
+  <div class="dashboard-grid">
     <div class="camera">
       <iframe src="http://192.168.25.125:8889/cam1"></iframe>
       <div class="label">Kamera 1</div>

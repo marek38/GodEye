@@ -697,17 +697,56 @@ pathDefaults:
 
 paths:
   cam1:
-    source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
+    source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
     sourceOnDemand: yes
   cam2:
-    source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
+    source: rtsp://admin:V14_d1m1r@192.168.25.207:554/media/video1
     sourceOnDemand: yes
   cam3:
     source: rtsp://admin:V14_d1m1r@192.168.25.208:554/media/video1
     sourceOnDemand: yes
   cam4:
-    source: rtsp://admin:V14_d1m1r@192.168.25.207:554/media/video1
+    source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
     sourceOnDemand: yes
+    
+    
+
+  #cam1:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.40:554/media/video1
+    #sourceOnDemand: yes
+  #cam2:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.195:554/media/video1
+    #sourceOnDemand: yes
+  #cam3:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.201:554/media/video1
+    #sourceOnDemand: yes
+  #cam4:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.202:554/media/video1
+    #sourceOnDemand: yes
+  #cam5:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.203:554/media/video1
+    #sourceOnDemand: yes
+  #cam6:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
+    #sourceOnDemand: yes
+  #cam7:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.205:554/media/video1
+    #sourceOnDemand: yes
+  #cam8:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
+    #sourceOnDemand: yes
+  #cam9:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.207:554/media/video1
+    #sourceOnDemand: yes
+  #cam10:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.208:554/media/video1
+    #sourceOnDemand: yes
+  #cam11:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.209:554/media/video1
+    #sourceOnDemand: yes
+  #cam12:
+    #source: rtsp://admin:V14_d1m1r@192.168.25.210:554/media/video1
+    #sourceOnDemand: yes
 
 
   # Settings under path "all_others" are applied to all paths that
