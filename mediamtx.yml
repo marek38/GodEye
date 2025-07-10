@@ -694,15 +694,23 @@ pathDefaults:
 # It's possible to use regular expressions by using a tilde as prefix,
 # for example "~^(test1|test2)$" will match both "test1" and "test2",
 # for example "~^prefix" will match all paths that start with "prefix".
+
+
 paths: 
-  cam1:
-    source: rtsp://admin:V14_d1m1r@192.168.25.208:554/media/video1 
-  cam2:
+  stream/cam1:
+    source: rtsp://admin:V14_d1m1r@192.168.25.208:554/media/video1
+
+  stream/cam2:
     source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
-  cam3:
+
+  stream/cam3:
     source: rtsp://admin:V14_d1m1r@192.168.25.209:554/media/video1
-  cam4:
+
+  stream/cam4:
     source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
+
+
+
   # Settings under path "all_others" are applied to all paths that
   # do not match another entry.
   all_others:

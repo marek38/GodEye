@@ -24,14 +24,17 @@ def logout_view(request):
     return redirect('login')
 
 
-
 @login_required
 def dashboard_view(request):
-    # Spusti shell skript ak ešte nebeží
-    script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'start_streams.py')
-    try:
-        subprocess.Popen(['bash', script_path])
-    except Exception as e:
-        print("Chyba pri spúšťaní skriptu:", e)
-
     return render(request, 'dashboard.html')
+
+# @login_required
+# def dashboard_view(request):
+#     # Spusti shell skript ak ešte nebeží
+#     script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'start_streams.py')
+#     try:
+#         subprocess.Popen(['bash', script_path])
+#     except Exception as e:
+#         print("Chyba pri spúšťaní skriptu:", e)
+
+#     return render(request, 'dashboard.html')
