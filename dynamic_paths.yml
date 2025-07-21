@@ -1,0 +1,13 @@
+paths:
+  cam1:
+    source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
+    sourceOnDemand: true
+  cam2:
+    source: rtsp://admin:V14_d1m1r@192.168.25.207:554/media/video1
+    sourceOnDemand: true
+  cam3:
+    source: rtsp://admin:V14_d1m1r@192.168.25.208:554/media/video1
+    sourceOnDemand: true
+  cam4:
+    source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
+    sourceOnDemand: true
