@@ -1,3 +1,14 @@
+
+
+
+log_level: info
+log_destinations: [stdout]
+
+# WebRTC nastavenie
+webrtc: true
+webrtcAddress: :8889  # Predvolený port pre WebRTC
+webrtcEncryption: false  # Zakázať šifrovanie pre jednoduché testovanie (použi true s certifikátmi pre HTTPS)
+
 paths:
   cam1:
     source: rtsp://admin:V14_d1m1r@192.168.25.206:554/media/video1
@@ -11,3 +22,6 @@ paths:
   cam4:
     source: rtsp://admin:V14_d1m1r@192.168.25.204:554/media/video1
     sourceOnDemand: true
+
+# Zakázať HLS, ak ho nechceš používať
+hls: false

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GodEye - {% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FFB800",
+                        secondary: "#1E1E1E",
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        sm: "4px",
+                        DEFAULT: "8px",
+                        md: "12px",
+                        lg: "16px",
+                        xl: "20px",
+                        "2xl": "24px",
+                        "3xl": "32px",
+                        full: "9999px",
+                        button: "8px",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body class="bg-black text-white font-inter">
+    {% if user.is_authenticated %}
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="w-60 bg-black border-r border-gray-800 fixed h-full">
+            <div class="p-6 border-b border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <i class="ri-eye-line text-black text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold text-primary">GodEye</span>
+                </div>
+            </div>
+            <nav class="mt-6">
+                <div class="px-4 space-y-2">
+                    <a href="{% url 'dashboard' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{% url 'cameras' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'cameras' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-camera-line"></i>
+                        </div>
+                        <span>Cameras</span>
+                    </a>
+                    <a href="{% url 'streams' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'streams' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-live-line"></i>
+                        </div>
+                        <span>Streams</span>
+                    </a>
+                    <a href="{% url 'alerts' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'alerts' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-alarm-warning-line"></i>
+                        </div>
+                        <span>Alerts</span>
+                    </a>
+                    <a href="{% url 'settings' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-settings-3-line"></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
+                    <a href="{% url 'help' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg {% if request.resolver_match.url_name == 'help' %}active{% endif %}">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-question-line"></i>
+                        </div>
+                        <span>Help</span>
+                    </a>
+                    <a href="{% url 'logout' %}" class="nav-item flex items-center px-4 py-3 text-gray-400 hover:text-white rounded-lg">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-logout-box-line"></i>
+                        </div>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 ml-60">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    {% else %}
+        {% block auth_content %}
+        {% endblock %}
+    {% endif %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

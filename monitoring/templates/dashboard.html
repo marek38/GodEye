@@ -1,71 +1,107 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
-      margin: 0;
-      padding: 2rem;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .camera {
-      background: white;
-      padding: 0.5rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-      border-radius: 0.5rem;
-    }
-
-    .label {
-      margin-top: 0.5rem;
-      font-weight: 600;
-    }
-  </style>
-</head>
-<body>
-  <h1>Vitaj na dashboarde</h1>
-  <div class="grid">
-    <div class="camera">
-      <iframe src="http://192.168.25.125:8889/cam1"></iframe>
-      <div class="label">Kamera 1</div>
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<header class="bg-black border-b border-gray-800 px-8 py-4">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <h1 class="text-2xl font-semibold text-white">GodEye Dashboard</h1>
+            <nav class="text-sm text-gray-400">
+                <span>Dashboard</span>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                <i class="ri-notification-3-line text-lg"></i>
+            </button>
+            <button class="w-10 h-10 flex items-center justify-center bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-colors">
+                <i class="ri-user-3-line text-lg"></i>
+            </button>
+        </div>
     </div>
-    <div class="camera">
-      <iframe src="http://192.168.25.125:8889/cam2"></iframe>
-      <div class="label">Kamera 2</div>
+</header>
+<main class="p-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-secondary rounded-lg p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Total Cameras</h3>
+                    <p class="text-3xl font-bold text-primary" id="total-cameras">12</p>
+                </div>
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                    <i class="ri-camera-line text-black text-2xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-secondary rounded-lg p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Active Alerts</h3>
+                    <p class="text-3xl font-bold text-primary" id="active-alerts">3</p>
+                </div>
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                    <i class="ri-alarm-warning-line text-black text-2xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-secondary rounded-lg p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Storage Usage</h3>
+                    <p class="text-3xl font-bold text-primary" id="storage-usage">75%</p>
+                </div>
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                    <i class="ri-database-2-line text-black text-2xl"></i>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="camera">
-      <iframe src="http://192.168.25.125:8889/cam3"></iframe>
-      <div class="label">Kamera 3</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-secondary rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">Recent Alerts</h3>
+            <div class="space-y-4" id="recent-alerts">
+                <div class="alert-item flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+                    <div>
+                        <p class="text-white font-medium">Motion Detected - Entrance</p>
+                        <p class="text-gray-400 text-sm">Camera 01 | 2025-07-22 08:15 AM</p>
+                    </div>
+                    <button class="px-3 py-1 bg-primary text-black font-medium rounded-button hover:bg-yellow-500">View</button>
+                </div>
+                <!-- Ďalšie alerty načítané cez API -->
+            </div>
+        </div>
+        <div class="bg-secondary rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">Camera Status</h3>
+            <div class="space-y-4" id="camera-status">
+                <div class="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+                    <div>
+                        <p class="text-white font-medium">Camera 01 - Entrance</p>
+                        <p class="text-gray-400 text-sm">Online | 1080p @ 30fps</p>
+                    </div>
+                    <span class="px-3 py-1 bg-green-600 text-white text-sm rounded-full">Online</span>
+                </div>
+                <!-- Ďalšie kamery načítané cez API -->
+            </div>
+        </div>
     </div>
-    <div class="camera">
-      <iframe src="http://192.168.25.125:8889/cam4"></iframe>
-      <div class="label">Kamera 4</div>
+    <div class="bg-secondary rounded-lg p-6 mt-6">
+        <h3 class="text-lg font-semibold text-white mb-4">System Health</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">CPU Usage</p>
+                <p class="text-xl font-bold text-white" id="cpu-usage">45%</p>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">Memory Usage</p>
+                <p class="text-xl font-bold text-white" id="memory-usage">60%</p>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">Network</p>
+                <p class="text-xl font-bold text-white" id="network-usage">120 Mbps</p>
+            </div>
+        </div>
     </div>
-  </div>
-</body>
-</html>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
