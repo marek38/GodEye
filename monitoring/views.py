@@ -11,6 +11,10 @@ from .serializers import (
     AIModelSerializer, StorageSerializer, SystemSettingSerializer, SupportTicketSerializer
 )
 
+def home_redirect(request):
+    return redirect('dashboard')  # alebo '/dashboard/'
+
+
 def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')

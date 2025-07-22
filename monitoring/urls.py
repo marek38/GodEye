@@ -1,6 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
+from .views import home_redirect
+from django.views.generic.base import RedirectView
+
+
 
 router = DefaultRouter()
 router.register(r'cameras', views.CameraViewSet)
@@ -12,10 +16,11 @@ router.register(r'system-settings', views.SystemSettingViewSet)
 router.register(r'support-tickets', views.SupportTicketViewSet)
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='dashboard/', permanent=False)),
+    path('dashboard/', views.dashboard_view, name='dashboard'),
     path('register/', views.register_view, name='register'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('dashboard/', views.dashboard_view, name='dashboard'),
     path('cameras/', views.cameras_view, name='cameras'),
     path('streams/', views.streams_view, name='streams'),
     path('alerts/', views.alerts_view, name='alerts'),

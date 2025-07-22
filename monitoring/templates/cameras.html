@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="flex min-h-screen">
+  <!-- Sidebar tu môžeš vložiť ako partial ak chceš -->
+
+  <!-- Main Content -->
+  <div class="flex-1 ml-60">
+    <!-- Header -->
+    <header class="bg-black border-b border-gray-800 px-8 py-4">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-semibold text-white">Cameras</h1>
+        <div class="flex items-center space-x-4">
+          <button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
+            <i class="ri-notification-3-line text-lg"></i>
+          </button>
+          <button class="w-10 h-10 flex items-center justify-center bg-primary text-black rounded-full">
+            <i class="ri-user-3-line text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="p-8 space-y-6">
+      {% for cam in cameras %}
+        <div class="camera-card bg-secondary rounded-lg p-6 flex items-center space-x-4">
+          <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+            <i class="ri-camera-fill text-black text-xl"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-medium text-white mb-1">{{ cam.name }}</h3>
+            <p class="text-gray-400 text-sm font-mono">{{ cam.ip_address }}</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 {% if cam.status == 'online' %}bg-green-400{% elif cam.status == 'connecting' %}bg-yellow-400{% else %}bg-red-400{% endif %} rounded-full"></div>
+            <span class="{% if cam.status == 'online' %}text-green-400{% elif cam.status == 'connecting' %}text-yellow-400{% else %}text-red-400{% endif %} text-sm">{{ cam.status|title }}</span>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-white">No cameras available.</p>
+      {% endfor %}
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex space-x-4">
+        <button class="!rounded-button bg-primary text-black px-6 py-3 hover:bg-yellow-500 flex items-center space-x-2">
+          <i class="ri-add-line"></i>
+          <span>Add Camera</span>
+        </button>
+        <button class="!rounded-button bg-gray-700 text-white px-6 py-3 hover:bg-gray-600 flex items-center space-x-2">
+          <i class="ri-refresh-line"></i>
+          <span>Refresh All</span>
+        </button>
+        <button class="!rounded-button border border-gray-600 text-gray-300 px-6 py-3 hover:bg-gray-800 flex items-center space-x-2">
+          <i class="ri-settings-3-line"></i>
+          <span>Configure</span>
+        </button>
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

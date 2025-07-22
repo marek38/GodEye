@@ -4,10 +4,10 @@ from django.utils import timezone  # Pridaný import
 
 class Camera(models.Model):
     name = models.CharField(max_length=100)
-    ip_address = models.CharField(max_length=15)
+    ip_address = models.GenericIPAddressField(default="0.0.0.0")
     resolution = models.CharField(max_length=20, default="1920x1080")
     fps = models.IntegerField(default=30)
-    zone = models.CharField(max_length=50)
+    zone = models.CharField(max_length=50, default="Zone A")
     status = models.CharField(max_length=20, choices=[("online", "Online"), ("offline", "Offline")], default="online")
     motion_detection = models.BooleanField(default=True)
     recording = models.BooleanField(default=True)
