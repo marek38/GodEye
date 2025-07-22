@@ -11,9 +11,27 @@ from .serializers import (
     AIModelSerializer, StorageSerializer, SystemSettingSerializer, SupportTicketSerializer
 )
 
-def home_redirect(request):
-    return redirect('dashboard')  # alebo '/dashboard/'
+from rest_framework import status
+from .models import Camera
+from .serializers import CameraSerializer
 
+@api_view(['PUT'])
+def update_camera(request, pk):
+    try:
+        camera = Camera.objects.get(pk=pk)
+    except Camera.DoesNotExist:
+        return Response(status=404)
+
+    serializer = CameraSerializer(camera, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+def home_redirect(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')  # Alebo url='dashboard/'
+    return redirect('login')  # Alebo url='login/'
 
 def register_view(request):
     if request.method == 'POST':
@@ -97,3 +115,4 @@ def save_settings(request):
     for key, value in settings_data.items():
         SystemSetting.objects.update_or_create(key=key, defaults={'value': value})
     return Response({"status": "Settings saved successfully"})
+

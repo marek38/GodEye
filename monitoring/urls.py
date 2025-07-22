@@ -16,7 +16,9 @@ router.register(r'system-settings', views.SystemSettingViewSet)
 router.register(r'support-tickets', views.SupportTicketViewSet)
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='dashboard/', permanent=False)),
+    path('', home_redirect, name='home'),
+    path('api/cameras/<int:pk>/', views.update_camera, name='update_camera'),
+    # path('api/cameras/<int:pk>/', update_camera, name='update_camera'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('register/', views.register_view, name='register'),
     path('login/', views.login_view, name='login'),

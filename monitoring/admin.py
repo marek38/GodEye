@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import Camera, Stream, Alert, AIModel, Storage, SystemSetting, SupportTicket
 
+
 @admin.register(Camera)
 class CameraAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ip_address', 'resolution', 'fps', 'zone', 'status', 'motion_detection', 'recording')
-    list_filter = ('status', 'zone', 'motion_detection')
-    search_fields = ('name', 'ip_address')
+    list_display = ('name', 'rtsp_url', 'zone', 'created_at')
+    list_filter = ('zone',)
 
 @admin.register(Stream)
 class StreamAdmin(admin.ModelAdmin):

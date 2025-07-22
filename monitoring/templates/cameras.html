@@ -1,63 +1,53 @@
+<!-- templates/cameras.html -->
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="flex min-h-screen">
-  <!-- Sidebar tu môžeš vložiť ako partial ak chceš -->
+<div class="container mx-auto text-white">
+  <h1 class="text-2xl font-bold mb-4">Cameras</h1>
+  
+  <button onclick="openModal()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded">
+    + Add Camera
+  </button>
 
-  <!-- Main Content -->
-  <div class="flex-1 ml-60">
-    <!-- Header -->
-    <header class="bg-black border-b border-gray-800 px-8 py-4">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-semibold text-white">Cameras</h1>
-        <div class="flex items-center space-x-4">
-          <button class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-            <i class="ri-notification-3-line text-lg"></i>
-          </button>
-          <button class="w-10 h-10 flex items-center justify-center bg-primary text-black rounded-full">
-            <i class="ri-user-3-line text-lg"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Content Area -->
-    <main class="p-8 space-y-6">
-      {% for cam in cameras %}
-        <div class="camera-card bg-secondary rounded-lg p-6 flex items-center space-x-4">
-          <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-            <i class="ri-camera-fill text-black text-xl"></i>
-          </div>
-          <div class="flex-1">
-            <h3 class="text-lg font-medium text-white mb-1">{{ cam.name }}</h3>
-            <p class="text-gray-400 text-sm font-mono">{{ cam.ip_address }}</p>
-          </div>
-          <div class="flex items-center space-x-2">
-            <div class="w-3 h-3 {% if cam.status == 'online' %}bg-green-400{% elif cam.status == 'connecting' %}bg-yellow-400{% else %}bg-red-400{% endif %} rounded-full"></div>
-            <span class="{% if cam.status == 'online' %}text-green-400{% elif cam.status == 'connecting' %}text-yellow-400{% else %}text-red-400{% endif %} text-sm">{{ cam.status|title }}</span>
-          </div>
-        </div>
-      {% empty %}
-        <p class="text-white">No cameras available.</p>
-      {% endfor %}
-
-      <!-- Action Buttons -->
-      <div class="mt-8 flex space-x-4">
-        <button class="!rounded-button bg-primary text-black px-6 py-3 hover:bg-yellow-500 flex items-center space-x-2">
-          <i class="ri-add-line"></i>
-          <span>Add Camera</span>
-        </button>
-        <button class="!rounded-button bg-gray-700 text-white px-6 py-3 hover:bg-gray-600 flex items-center space-x-2">
-          <i class="ri-refresh-line"></i>
-          <span>Refresh All</span>
-        </button>
-        <button class="!rounded-button border border-gray-600 text-gray-300 px-6 py-3 hover:bg-gray-800 flex items-center space-x-2">
-          <i class="ri-settings-3-line"></i>
-          <span>Configure</span>
-        </button>
-      </div>
-    </main>
+  <div id="camera-list" class="mt-6 space-y-4">
+    <!-- JS will inject camera cards here -->
   </div>
 </div>
+
+<!-- Modal -->
+<div id="cameraModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 hidden z-50">
+  <div class="bg-white p-6 rounded-md shadow-md text-black w-full max-w-md">
+    <h2 class="text-xl font-bold mb-4">Add Camera</h2>
+    <input type="text" id="cameraName" placeholder="Camera Name" class="w-full mb-2 px-3 py-2 border rounded" />
+    <input type="text" id="rtspUrl" placeholder="RTSP URL" class="w-full mb-4 px-3 py-2 border rounded" />
+    <div class="flex justify-end">
+      <button onclick="closeModal()" class="mr-2 bg-gray-400 px-4 py-2 rounded">Cancel</button>
+      <button onclick="submitCamera()" class="bg-yellow-500 px-4 py-2 rounded font-bold">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT CAMERA MODAL -->
+<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-[#1f2937] text-white rounded-xl shadow-lg w-full max-w-md p-6">
+    <h2 class="text-xl font-semibold mb-4">Edit Camera</h2>
+
+    <form id="editCameraForm" method="POST">
+      {% csrf_token %}
+      <input type="hidden" id="editCameraId" name="camera_id">
+
+      <label for="editCameraName" class="block mb-2 text-sm font-medium">Name</label>
+      <input type="text" id="editCameraName" name="name" class="w-full px-4 py-2 bg-[#111827] border border-gray-700 rounded-lg mb-4" required>
+
+      <label for="editCameraRTSP" class="block mb-2 text-sm font-medium">RTSP URL</label>
+      <input type="text" id="editCameraRTSP" name="rtsp_url" class="w-full px-4 py-2 bg-[#111827] border border-gray-700 rounded-lg mb-6" required>
+
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeEditModal()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg">Cancel</button>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="{% static 'js/cameras.js' %}"></script>
+
 {% endblock %}

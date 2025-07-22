@@ -19,15 +19,13 @@ import os
 
 # napr. v kamera/apps.py
 
+# monitoring/apps.py
+
 from django.apps import AppConfig
-import threading
 
 class MonitoringConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'monitoring'
 
     def ready(self):
-        import monitoring.signals
-        from mediamtx_utils.start_mediamtx import start_mediamtx
-        threading.Thread(target=start_mediamtx).start()
-
+        import monitoring.signals  # 👈 dôležité!
