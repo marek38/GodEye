@@ -118,35 +118,31 @@ function submitCamera() {
     });
 }
 
-function setupEditFormHandler() {
-  const form = document.getElementById('editCameraForm');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+function fetchCameras() {
+  fetch('/api/cameras/')
+    .then(response => response.json())
+    .then(data => {
+      const cameraList = document.getElementById('camera-list');
+      cameraList.innerHTML = '';
 
-    const id = document.getElementById('editCameraId').value;
-    const name = document.getElementById('editCameraName').value;
-    const rtsp_url = document.getElementById('editCameraRTSP').value;
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      data.forEach(camera => {
+        const cameraCard = document.createElement('div');
+        cameraCard.className = 'bg-gray-900 text-white p-4 rounded-lg flex justify-between items-center mb-2';
 
-    fetch(`/api/cameras/${id}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
-      },
-      body: JSON.stringify({ name, rtsp_url })
-    })
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to update');
-        return response.json();
-      })
-      .then(data => {
-        closeEditModal();
-        fetchCameras();
-      })
-      .catch(error => {
-        alert('Edit failed');
-        console.error(error);
+        cameraCard.innerHTML = `
+          <div>
+            <h3 class="font-semibold">${camera.name}</h3>
+            <p class="text-sm text-gray-400">${camera.rtsp_url}</p>
+          </div>
+          <button 
+            class="bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded"
+            onclick="openEditModal(${camera.id}, '${camera.name}', '${camera.rtsp_url}')"
+          >
+            Edit
+          </button>
+        `;
+        cameraList.appendChild(cameraCard);
       });
-  });
+    })
+    .catch(error => console.error('Chyba pri načítaní kamier:', error));
 }
